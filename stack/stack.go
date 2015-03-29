@@ -1,6 +1,14 @@
 package stack
 
-// Stack structure
+// Simple stack data structure
+// Usage:
+//    s := stack.New()
+//    s.Push(3)
+//    s.Push(6)
+//    fmt.Println(s.Length()) // 2
+//    fmt.Println(s.Pop())    // 6
+//    fmt.Println(s.Pop())    // 3
+//    fmt.Println(s.Pop())    // nil
 type Stack struct {
 	stack []interface{}
 }
