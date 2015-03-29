@@ -30,7 +30,7 @@ func (s *Stack) Pop() interface{} {
 	}
 
 	last := s.stack[len(s.stack)-1]
-	s.stack = s.stack[0 : len(s.stack)-1]
+	s.stack = s.stack[:len(s.stack)-1]
 
 	return last
 }
