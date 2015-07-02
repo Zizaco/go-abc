@@ -35,7 +35,15 @@ func (h *Hashtable) Set(key string, value interface{}) bool {
 		h.bucket[hashedKey] = linked_list.New()
 	}
 
-	h.bucket[hashedKey].Insert(hashtableItem{key, value})
+	for e := h.bucket[hashedKey].Iterate(); e != nil; e = e.Next() {
+		item := e.Value.(*hashtableItem)
+		if item.key == key {
+			item.value = value
+			return true
+		}
+	}
+
+	h.bucket[hashedKey].Insert(&hashtableItem{key, value})
 
 	return true
 }
@@ -48,12 +56,8 @@ func (h *Hashtable) Get(key string) interface{} {
 		return nil
 	}
 
-	if list.Length() == 1 {
-		return list.First().(hashtableItem).value
-	}
-
 	for e := list.Iterate(); e != nil; e = e.Next() {
-		item := e.Value.(hashtableItem)
+		item := e.Value.(*hashtableItem)
 		if item.key == key {
 			return item.value
 		}
